@@ -1,0 +1,10 @@
+{
+  "Name": "示例Mod",
+  "Author": "Your Name",
+  "Version": "1.0.1",
+  "Description": "一个简单的星露谷物语Mod示例",
+  "UniqueID": "YourName.ExampleMod",
+  "EntryDll": "readMod.dll",
+  "MinimumApiVersion": "3.0.0",
+  "UpdateKeys": []
+}

@@ -1,0 +1,8 @@
+E:\project\-mod\readMod\obj\Debug\net6.0\readMod.csproj.AssemblyReference.cache
+E:\project\-mod\readMod\obj\Debug\net6.0\readMod.GeneratedMSBuildEditorConfig.editorconfig
+E:\project\-mod\readMod\obj\Debug\net6.0\readMod.AssemblyInfoInputs.cache
+E:\project\-mod\readMod\obj\Debug\net6.0\readMod.AssemblyInfo.cs
+E:\project\-mod\readMod\obj\Debug\net6.0\readMod.csproj.CoreCompileInputs.cache
+E:\project\-mod\readMod\bin\Debug\net6.0\readMod.deps.json
+E:\project\-mod\readMod\bin\Debug\net6.0\readMod.dll
+E:\project\-mod\readMod\obj\Debug\net6.0\readMod.dll
