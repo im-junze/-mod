@@ -194,25 +194,36 @@ namespace readMod
                 // 检查是否在游戏菜单中
                 if (Game1.activeClickableMenu is GameMenu gameMenu)
                 {
-                    // 获取游戏菜单的按钮列表
-                    var buttons = gameMenu.GetType().GetField("buttons", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(gameMenu) as List<ClickableTextureComponent>;
-                    if (buttons != null)
+                    try
                     {
-                        // 检查是否点击了文本阅读器按钮
-                        var textReaderButton = buttons.FirstOrDefault(button => button.name == "TextReaderButton");
-                        if (textReaderButton != null && textReaderButton.containsPoint(Game1.getMouseX(), Game1.getMouseY()))
+                        // 获取游戏菜单的按钮列表
+                        var field = gameMenu.GetType().GetField("buttons", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                        if (field != null)
                         {
-                            // 打开文本阅读器
-                            if (!string.IsNullOrEmpty(this.config.TextFilePath) && File.Exists(this.config.TextFilePath))
+                            var buttons = field.GetValue(gameMenu) as List<ClickableTextureComponent>;
+                            if (buttons != null)
                             {
-                                this.LoadTextFile();
-                                Game1.activeClickableMenu = new TextReaderMenu(this, this.textContent, this.config.TextFilePath);
-                            }
-                            else
-                            {
-                                Game1.showRedMessage("请先设置文本文件路径。使用 'readtxt [文件路径]' 命令设置。");
+                                // 检查是否点击了文本阅读器按钮
+                                var textReaderButton = buttons.FirstOrDefault(button => button != null && button.name == "TextReaderButton");
+                                if (textReaderButton != null && textReaderButton.containsPoint(Game1.getMouseX(), Game1.getMouseY()))
+                                {
+                                    // 打开文本阅读器
+                                    if (!string.IsNullOrEmpty(this.config.TextFilePath) && File.Exists(this.config.TextFilePath))
+                                    {
+                                        this.LoadTextFile();
+                                        Game1.activeClickableMenu = new TextReaderMenu(this, this.textContent, this.config.TextFilePath);
+                                    }
+                                    else
+                                    {
+                                        Game1.showRedMessage("请先设置文本文件路径。使用 'readtxt [文件路径]' 命令设置。");
+                                    }
+                                }
                             }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Monitor.Log($"处理鼠标点击时出错: {ex.Message}", LogLevel.Error);
                     }
                 }
             }
@@ -310,24 +321,35 @@ namespace readMod
         /// <param name="gameMenu">游戏菜单</param>
         private void AddReaderOptionToGameMenu(GameMenu gameMenu)
         {
-            // 这里我们使用一个更简单的方法，通过修改游戏菜单的按钮列表
-            // 注意：这种方法可能会在游戏更新时失效，但对于当前版本有效
-
-            // 我们将添加一个新的按钮到游戏菜单
-            // 首先获取游戏菜单的按钮列表
-            var buttons = gameMenu.GetType().GetField("buttons", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(gameMenu) as List<ClickableTextureComponent>;
-            if (buttons != null)
+            try
             {
-                // 检查是否已经添加了文本阅读器按钮
-                bool alreadyAdded = buttons.Any(button => button.name == "TextReaderButton");
-                if (!alreadyAdded)
+                // 这里我们使用一个更简单的方法，通过修改游戏菜单的按钮列表
+                // 注意：这种方法可能会在游戏更新时失效，但对于当前版本有效
+
+                // 我们将添加一个新的按钮到游戏菜单
+                // 首先获取游戏菜单的按钮列表
+                var field = gameMenu.GetType().GetField("buttons", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (field != null)
                 {
-                    // 创建文本阅读器按钮
-                    int buttonX = gameMenu.xPositionOnScreen + 20;
-                    int buttonY = gameMenu.yPositionOnScreen + gameMenu.height - 60;
-                    var button = new ClickableTextureComponent("TextReaderButton", new Rectangle(buttonX, buttonY, 160, 40), null, "文本阅读器", Game1.mouseCursors, new Rectangle(221, 425, 14, 11), 4f);
-                    buttons.Add(button);
+                    var buttons = field.GetValue(gameMenu) as List<ClickableTextureComponent>;
+                    if (buttons != null)
+                    {
+                        // 检查是否已经添加了文本阅读器按钮
+                        bool alreadyAdded = buttons.Any(button => button != null && button.name == "TextReaderButton");
+                        if (!alreadyAdded)
+                        {
+                            // 创建文本阅读器按钮
+                            int buttonX = gameMenu.xPositionOnScreen + 20;
+                            int buttonY = gameMenu.yPositionOnScreen + gameMenu.height - 60;
+                            var button = new ClickableTextureComponent("TextReaderButton", new Rectangle(buttonX, buttonY, 160, 40), null, "文本阅读器", Game1.mouseCursors, new Rectangle(221, 425, 14, 11), 4f);
+                            buttons.Add(button);
+                        }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                this.Monitor.Log($"添加文本阅读器按钮时出错: {ex.Message}", LogLevel.Error);
             }
         }
 

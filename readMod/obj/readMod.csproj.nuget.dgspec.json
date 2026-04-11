@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\project\\-mod\\readMod\\readMod.csproj": {}
+    "E:\\project\\-mod\\readmod\\readMod.csproj": {}
   },
   "projects": {
-    "E:\\project\\-mod\\readMod\\readMod.csproj": {
+    "E:\\project\\-mod\\readmod\\readMod.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\project\\-mod\\readMod\\readMod.csproj",
+        "projectUniqueName": "E:\\project\\-mod\\readmod\\readMod.csproj",
         "projectName": "readMod",
-        "projectPath": "E:\\project\\-mod\\readMod\\readMod.csproj",
+        "projectPath": "E:\\project\\-mod\\readmod\\readMod.csproj",
         "packagesPath": "C:\\Users\\dong\\.nuget\\packages\\",
-        "outputPath": "E:\\project\\-mod\\readMod\\obj\\",
+        "outputPath": "E:\\project\\-mod\\readmod\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dong\\AppData\\Roaming\\NuGet\\NuGet.Config"
